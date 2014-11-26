@@ -1,5 +1,6 @@
 CC= gcc
-CFLAGS= -m64 -Wall -ansi -pedantic -O3 -std=c99
+ARCH= x86_64
+CFLAGS= -arch $(ARCH) -Wall -ansi -pedantic -O3 -std=c99
 UV= uv
 UV_VERSION= 1.0.0
 HTTP_PARSER= http_parser
@@ -19,7 +20,7 @@ uv:
 	mkdir -p ./$(UV)/build ; \
 	git clone https://git.chromium.org/external/gyp.git $(UV)/build/gyp ; \
 	./$(UV)/gyp_uv.py -f xcode ; \
-	xcodebuild -ARCHS="x86_64" -project ./$(UV)/uv.xcodeproj \
+	xcodebuild -ARCHS="$(ARCH)" -project ./$(UV)/uv.xcodeproj \
 		-configuration Release -target All
 
 uv/libuv.a: uv
